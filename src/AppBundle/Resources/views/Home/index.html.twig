@@ -1,0 +1,122 @@
+{% block content %}
+
+    <div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Location</legend>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="country">Country</label>
+                        <div class="col-md-6">
+                            <select id="country" name="country" class="form-control">
+                                <option value="LT">Lithuania</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="city">City</label>
+                        <div class="col-md-6">
+                            <select id="city" name="city" class="form-control">
+                                <option value="vilnius">Vilnius</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="place">Place</label>
+                        <div class="col-md-6">
+                            <select id="place" name="place" class="form-control">
+                                <option value="132654">Express Pizza</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Settings</legend>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="qty">How many pizzas?</label>
+                        <div class="col-md-6">
+                            <select id="qty" name="qty" class="form-control">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Checkboxes (inline) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="options">Flavor</label>
+                        <div class="col-md-8">
+                            <label class="checkbox-inline" for="options-0">
+                                <input name="options" id="options-0" value="Meaty" type="checkbox" checked="checked">
+                                Meaty
+                            </label>
+
+                            <label class="checkbox-inline" for="options-1">
+                                <input name="options" id="options-1" value="Veggy" type="checkbox" checked="checked">
+                                Veggy
+                            </label>
+
+                            <label class="checkbox-inline" for="options-2">
+                                <input name="options" id="options-2" value="Fishy" type="checkbox" checked="checked">
+                                Fishy
+                            </label>
+
+                            <label class="checkbox-inline" for="options-3">
+                                <input name="options" id="options-3" value="Spicy" type="checkbox" checked="checked">
+                                Spicy
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Multiple Checkboxes (inline) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="options">Options</label>
+                        <div class="col-md-8">
+                            <label class="checkbox-inline" for="no_duplicates">
+                                <input name="options" id="no_duplicates" value="1" type="checkbox" checked="checked">
+                                No duplicates
+                            </label>
+
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-2 col-md-offset-5 column">
+            <button type="button" class="btn btn-success btn-lg btn-block">Generate!</button>
+        </div>
+    </div>
+{% endblock %}
