@@ -1,4 +1,4 @@
-{% extends "AppBundle::layout.html.twig" %}
+{% extends "base.html.twig" %}
 
 {% block content %}
 
@@ -15,6 +15,7 @@
                         <label class="col-md-4 control-label" for="country">Country</label>
                         <div class="col-md-6">
                             <select id="country" name="country" class="form-control">
+                                <option value="">select</option>
                                 <option value="LT">Lithuania</option>
                             </select>
                         </div>
@@ -24,8 +25,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="city">City</label>
                         <div class="col-md-6">
-                            <select id="city" name="city" class="form-control">
-                                <option value="vilnius">Vilnius</option>
+                            <select id="city" name="city" class="form-control" disabled>
+                                <option value="">select</option>
                             </select>
                         </div>
                     </div>
@@ -34,8 +35,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="place">Place</label>
                         <div class="col-md-6">
-                            <select id="place" name="place" class="form-control">
-                                <option value="132654">Express Pizza</option>
+                            <select id="place" name="place" class="form-control" disabled>
+                                <option value="">select</option>
                             </select>
                         </div>
                     </div>
@@ -118,7 +119,9 @@
 
     <div class="row clearfix">
         <div class="col-md-2 col-md-offset-5 column">
-            <button type="button" class="btn btn-success btn-lg btn-block">Generate!</button>
+            <button type="button" class="btn btn-disabled btn-lg btn-block" disabled>Generate!</button>
         </div>
     </div>
+
+
 {% endblock %}

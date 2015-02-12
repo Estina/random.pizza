@@ -1,0 +1,34 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * RestaurantMenu
+ *
+ * @ORM\Table(name="restaurant_menu")
+ * @ORM\Entity
+ */
+class RestaurantMenu
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="restaurant_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $restaurantId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="menu_id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $menuId;
+
+
+}
