@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% block controller %}home{% endblock %}
+
 {% block content %}
 
     <div class="row clearfix">
@@ -24,7 +26,7 @@
                     <!-- Select Basic -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="city">City</label>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="city-ctr">
                             <select id="city" name="city" class="form-control" disabled>
                                 <option value="">select</option>
                             </select>
@@ -34,7 +36,7 @@
                     <!-- Select Basic -->
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="place">Place</label>
-                        <div class="col-md-6">
+                        <div class="col-md-6" id="place-ctr">
                             <select id="place" name="place" class="form-control" disabled>
                                 <option value="">select</option>
                             </select>

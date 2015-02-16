@@ -28,12 +28,13 @@
 
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app/common.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app/home.js') }}"></script>
 
 {% endblock %}
 <head>
 
-<body>
+<body data-controller="{% block controller %}{% endblock %}">
 {% block body %}
 
     <div class="container">
@@ -42,7 +43,7 @@
                 <div class="col-md-12 column">
                     <img alt="random.pizza logo" src="img/logo_color.png" id="logo">
                     <h1 class="text-center">
-                        random<span class="dot">.</span><span class="pizza">pizza</span></h1>
+                        random<span class="dot">.</span><span class="pizza">pizza</span>
                     </h1>
                 </div>
             </div>
@@ -55,3 +56,4 @@
     </div>
 {% endblock %}
 </body>
+</html>

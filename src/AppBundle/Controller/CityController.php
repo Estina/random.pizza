@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CityController extends Controller
 {
@@ -13,7 +13,7 @@ class CityController extends Controller
      * @Route("/cities/{countryCode}")
      * @Method("GET")
      *
-     * @return JsonResponse
+     * @return Response
      */
     public function listAction($countryCode)
     {
@@ -21,17 +21,7 @@ class CityController extends Controller
             ->getRepository('AppBundle:City')
             ->findBy(['countryCode' => $countryCode]);
 
-        $data = [];
-        if ($list) {
-            foreach ($list as $city) {
-                $data[$city->getId()] = $city->getName();
-            }
-        }
-
-        $response = new JsonResponse();
-        $response->setData(array($data));
-
-        return $response;
+        return $this->render('Home/countries.html.twig', array('list' => $list));
     }
 
 }
