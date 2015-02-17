@@ -2,13 +2,14 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * City
  *
- * @ORM\Table(name="city", indexes={@ORM\Index(name="country_id", columns={"country_code"})})
- * @ORM\Entity
+ * @ORM\Table(name="city", indexes={@ORM\Index(name="country_code", columns={"country_code"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\CityRepository")
  */
 class City
 {
@@ -35,6 +36,22 @@ class City
      */
     private $id;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Restaurant")
+     * @ORM\JoinTable(name="city_restaurant",
+     *      joinColumns={@ORM\JoinColumn(name="city_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")}
+     *      )
+     */
+    private $restaurants;
+
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->restaurants = new ArrayCollection();
+    }
 
 
     /**
@@ -91,5 +108,36 @@ class City
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRestaurants()
+    {
+        return $this->restaurants;
+    }
+
+    /**
+     * Add restaurants
+     *
+     * @param \AppBundle\Entity\Restaurant $restaurants
+     * @return City
+     */
+    public function addRestaurant(\AppBundle\Entity\Restaurant $restaurants)
+    {
+        $this->restaurants[] = $restaurants;
+
+        return $this;
+    }
+
+    /**
+     * Remove restaurants
+     *
+     * @param \AppBundle\Entity\Restaurant $restaurants
+     */
+    public function removeRestaurant(\AppBundle\Entity\Restaurant $restaurants)
+    {
+        $this->restaurants->removeElement($restaurants);
     }
 }

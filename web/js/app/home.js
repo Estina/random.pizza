@@ -4,6 +4,14 @@ var App = App || {};
 
     App.Home = {
 
+        setDefaultPlace: function() {
+            this.setPlaceHtml(
+                '<select id="place" name="place" class="form-control" disabled>' +
+                '<option value="">select</option>' +
+                '</select>'
+            );
+        },
+
         setPlaceHtml: function(html) {
             $('#place-ctr').html(html);
         },
@@ -36,11 +44,27 @@ var App = App || {};
                     });
                 }
 
-                _this.setPlaceHtml(
-                    '<select id="city" name="city" class="form-control" disabled>' +
-                    '<option value="">select</option>' +
-                    '</select>'
-                );
+                _this.setDefaultPlace();
+            });
+
+            $('#city').on('change', function(){
+
+                var cityId = $(this).val();
+
+                if ('' == cityId) {
+                    _this.setDefaultPlace();
+
+                } else {
+
+                    $.ajax({
+                        type: 'get',
+                        url: '/places/' + cityId,
+                        success: function(response) {
+                            _this.setPlaceHtml(response);
+                        }
+                    });
+                }
+
             });
         }
     };
