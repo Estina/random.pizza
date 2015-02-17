@@ -1,0 +1,7 @@
+<select id="restaurant" name="restaurant" class="form-control">
+    <option value="">select</option>
+    {% for restaurant in list %}
+        <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+    {% endfor %}
+</select>
+

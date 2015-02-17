@@ -23,6 +23,16 @@ class CityRepository extends EntityRepository
     public function findAllRestaurants($cityId)
     {
         $em = $this->getEntityManager();
+        $query = $em->createQuery('
+          SELECT r.id, r.name
+          FROM AppBundle\Entity\City c
+          JOIN AppBundle\Entity\Restaurant r
+          WHERE c.id = :cityId
+          ORDER BY r.name'
+        )
+        ->setParameter('cityId', $cityId);
+
+        return $query->getResult();
 
     }
 }

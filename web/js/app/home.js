@@ -4,16 +4,16 @@ var App = App || {};
 
     App.Home = {
 
-        setDefaultPlace: function() {
-            this.setPlaceHtml(
-                '<select id="place" name="place" class="form-control" disabled>' +
+        setDefaultRestaurant: function() {
+            this.setRestaurantHtml(
+                '<select id="restaurant" name="restaurant" class="form-control" disabled>' +
                 '<option value="">select</option>' +
                 '</select>'
             );
         },
 
-        setPlaceHtml: function(html) {
-            $('#place-ctr').html(html);
+        setRestaurantHtml: function(html) {
+            $('#restaurant-ctr').html(html);
         },
 
         setCityHtml: function(html) {
@@ -44,27 +44,25 @@ var App = App || {};
                     });
                 }
 
-                _this.setDefaultPlace();
+                _this.setDefaultRestaurant();
             });
 
-            $('#city').on('change', function(){
-
+            $("#city-ctr").delegate("#city", "change", function() {
                 var cityId = $(this).val();
 
                 if ('' == cityId) {
-                    _this.setDefaultPlace();
+                    _this.setDefaultRestaurant();
 
                 } else {
 
                     $.ajax({
                         type: 'get',
-                        url: '/places/' + cityId,
+                        url: '/restaurants/' + cityId,
                         success: function(response) {
-                            _this.setPlaceHtml(response);
+                            _this.setRestaurantHtml(response);
                         }
                     });
                 }
-
             });
         }
     };

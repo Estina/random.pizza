@@ -18,12 +18,9 @@ class RestaurantController extends Controller
     public function listAction($cityId)
     {
         $em = $this->getDoctrine()->getManager();
-        $list = $em->getRepository('AppBundle:Product')->findAllByCountryCode($countryCode);
-        $list = $this->getDoctrine()
-            ->getRepository('AppBundle:City')
-            ->findBy(['countryCode' => $countryCode]);
+        $list = $em->getRepository('AppBundle:City')->findAllRestaurants($cityId);
 
-        return $this->render('Home/countries.html.twig', array('list' => $list));
+        return $this->render('Home/restaurants.html.twig', array('list' => $list));
     }
 
 }
