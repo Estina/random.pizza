@@ -17,8 +17,8 @@ class CityController extends Controller
      */
     public function listAction($countryCode)
     {
-        $em = $this->getDoctrine()->getManager();
-        $list = $em->getRepository('AppBundle:City')->findAllByCountryCode($countryCode);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:City');
+        $list = $repository->findBy(['countryCode' => $countryCode]);
 
         return $this->render('Home/countries.html.twig', array('list' => $list));
     }

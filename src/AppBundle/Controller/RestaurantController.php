@@ -17,10 +17,10 @@ class RestaurantController extends Controller
      */
     public function listAction($cityId)
     {
-        $em = $this->getDoctrine()->getManager();
-        $list = $em->getRepository('AppBundle:City')->findAllRestaurants($cityId);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:City');
+        $city = $repository->find((int) $cityId);
 
-        return $this->render('Home/restaurants.html.twig', array('list' => $list));
+        return $this->render('Home/restaurants.html.twig', array('list' => $city->getRestaurants()));
     }
 
 }

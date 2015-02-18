@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Restaurant;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * City
  *
  * @ORM\Table(name="city", indexes={@ORM\Index(name="country_code", columns={"country_code"})})
- * @ORM\Entity(repositoryClass="AppBundle\Entity\CityRepository")
+ * @ORM\Entity
  */
 class City
 {
@@ -119,25 +121,25 @@ class City
     }
 
     /**
-     * Add restaurants
+     * Adds restaurant
      *
-     * @param \AppBundle\Entity\Restaurant $restaurants
+     * @param Restaurant $restaurant
      * @return City
      */
-    public function addRestaurant(\AppBundle\Entity\Restaurant $restaurants)
+    public function addRestaurant(\AppBundle\Entity\Restaurant $restaurant)
     {
-        $this->restaurants[] = $restaurants;
+        $this->restaurants[] = $restaurant;
 
         return $this;
     }
 
     /**
-     * Remove restaurants
+     * Removes restaurant
      *
-     * @param \AppBundle\Entity\Restaurant $restaurants
+     * @param Restaurant $restaurant
      */
-    public function removeRestaurant(\AppBundle\Entity\Restaurant $restaurants)
+    public function removeRestaurant(Restaurant $restaurant)
     {
-        $this->restaurants->removeElement($restaurants);
+        $this->restaurants->removeElement($restaurant);
     }
 }

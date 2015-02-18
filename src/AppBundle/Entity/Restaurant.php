@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\City;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +37,23 @@ class Restaurant
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="City")
+     * @ORM\JoinTable(name="city_restaurant",
+     *      joinColumns={@ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="city_id", referencedColumnName="id")}
+     *      )
+     */
+    private $cities;
+
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->cities = new ArrayCollection();
+    }
 
 
 
@@ -91,5 +111,39 @@ class Restaurant
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Adds city
+     *
+     * @param City $city
+     *
+     * @return City
+     */
+    public function addCity(City $city)
+    {
+        $this->cities[] = $city;
+
+        return $this;
+    }
+
+    /**
+     * Removes city
+     *
+     * @param City $city
+     */
+    public function removeCity(City $city)
+    {
+        $this->cities->removeElement($city);
+    }
+
+    /**
+     * Get cities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCities()
+    {
+        return $this->cities;
     }
 }
