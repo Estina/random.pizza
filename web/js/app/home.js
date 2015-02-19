@@ -4,66 +4,156 @@ var App = App || {};
 
     App.Home = {
 
-        setDefaultRestaurant: function() {
-            this.setRestaurantHtml(
-                '<select id="restaurant" name="restaurant" class="form-control" disabled>' +
-                '<option value="">select</option>' +
-                '</select>'
-            );
+        Country: {
+
+            getCode: function() {
+                return $('#country').val();
+            },
+
+            onChange: function(callback) {
+                $('#country').on('change', callback);
+            }
         },
 
-        setRestaurantHtml: function(html) {
-            $('#restaurant-ctr').html(html);
+        City: {
+
+            getId: function() {
+                return $('#city').val();
+            },
+
+            setEmpty: function() {
+                $('#city-ctr').html(
+                    '<select id="city" name="city" class="form-control" disabled>' +
+                    '<option value="">select</option>' +
+                    '</select>'
+                );
+            },
+
+            setValues: function(countryCode) {
+                $.ajax({
+                    type: 'get',
+                    url: '/cities/' + countryCode,
+                    success: function(response) {
+                        $('#city-ctr').html(response);
+                        $('#city').focus().select();
+                    }
+                });
+            },
+
+            onChange: function(callback) {
+                $("#city-ctr").delegate("#city", "change", callback);
+            }
+
         },
 
-        setCityHtml: function(html) {
-            $('#city-ctr').html(html);
+        Restaurant: {
+
+            getId: function() {
+                return $('#city').val();
+            },
+
+            setEmpty: function() {
+                $('#restaurant-ctr').html(
+                    '<select id="restaurant" name="restaurant" class="form-control" disabled>' +
+                    '<option value="">select</option>' +
+                    '</select>'
+                );
+            },
+
+            hasValues: function() {
+                return ($('#restaurant-ctr').find('option').length > 0);
+            },
+
+            setValues: function(cityId, callback) {
+                $.ajax({
+                    type: 'get',
+                    url: '/restaurants/' + cityId,
+                    success: function(response) {
+                        $('#restaurant-ctr').html(response);
+                        $('#restaurant').focus().select();
+                        callback;
+                    }
+                });
+            },
+
+            onChange: function(callback) {
+                $("#restaurant-ctr").delegate("#restaurant", "change", callback);
+            }
+        },
+
+        Generator: {
+
+            enable: function() {
+                $('#generate').removeAttr('disabled').removeClass('btn-disabled').addClass('btn-success');
+            },
+
+            disable: function() {
+                $('#generate').attr('disabled', true).addClass('btn-disabled').removeClass('btn-success');
+            },
+
+            onSubmit: function(callback) {
+                $('#generate').on('click', callback);
+            }
+
+
         },
 
         init: function() {
             var _this = this;
-            $('#country').on('change', function(){
 
-                var countryCode = $(this).val();
+            if ('' !== this.Country.getCode()) {
+                _this.City.setValues(_this.Country.getCode());
+            }
 
-                if ('' == countryCode) {
-                    _this.setCityHtml(
-                        '<select id="city" name="city" class="form-control" disabled>' +
-                        '<option value="">select</option>' +
-                        '</select>'
-                    );
-
+            this.Country.onChange(function() {
+                if ('' == _this.Country.getCode()) {
+                    _this.City.setEmpty();
                 } else {
-
-                    $.ajax({
-                        type: 'get',
-                        url: '/cities/' + countryCode,
-                        success: function(response) {
-                            _this.setCityHtml(response);
-                        }
-                    });
+                    _this.City.setValues(_this.Country.getCode());
                 }
-
-                _this.setDefaultRestaurant();
+                _this.Restaurant.setEmpty();
             });
 
-            $("#city-ctr").delegate("#city", "change", function() {
-                var cityId = $(this).val();
-
-                if ('' == cityId) {
-                    _this.setDefaultRestaurant();
-
+            this.City.onChange(function() {
+                if ('' == _this.City.getId()) {
+                    _this.Restaurant.setEmpty();
+                    _this.Generator.disable();
                 } else {
-
-                    $.ajax({
-                        type: 'get',
-                        url: '/restaurants/' + cityId,
-                        success: function(response) {
-                            _this.setRestaurantHtml(response);
+                    _this.Restaurant.setValues(_this.City.getId(), function() {
+                        if (_this.Restaurant.hasValues()) {
+                            _this.Generator.enable();
                         }
                     });
                 }
             });
+
+            this.Restaurant.onChange(function(){
+                if ('' !== _this.Restaurant.getId()) {
+                    $('#qty').focus().select();
+                }
+            });
+
+            this.Generator.onSubmit(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/generate',
+                    data: {
+                        cityId: _this.City.getId(),
+                        restaurantId: _this.Restaurant.getId(),
+                        qty:   $('#qty').val(),
+                        meaty: $('#meaty').prop('checked') ? 1 : 0,
+                        veggy: $('#veggy').prop('checked') ? 1 : 0,
+                        fishy: $('#fishy').prop('checked') ? 1 : 0,
+                        hot:   $('#hot').prop('checked') ? 1 : 0,
+                        nd:    $('#no_duplicates').prop('checked') ? 1 : 0
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        //window.location.href = "/" + response;
+                    }
+                });
+            });
+
         }
     };
 

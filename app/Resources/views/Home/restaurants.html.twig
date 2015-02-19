@@ -1,7 +1,12 @@
 <select id="restaurant" name="restaurant" class="form-control">
-    <option value="">select</option>
+
+    {% if list|length > 1 %}
+        <option value="">random</option>
+    {%  endif %}
+
     {% for restaurant in list %}
         <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
     {% endfor %}
+
 </select>
 
