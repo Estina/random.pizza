@@ -140,6 +140,7 @@ var App = App || {};
                     type: 'POST',
                     url: '/generate',
                     data: {
+                        countryCode: _this.Country.getCode(),
                         cityId: _this.City.getId(),
                         restaurantId: _this.Restaurant.getId(),
                         qty: $('#qty').val(),
