@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\Generator;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -26,9 +28,11 @@ class HomeController extends Controller
      */
     public function generateAction()
     {
-        /** @var Request $request */
-        $request = $this->get('request');
-
-        return new Response($request->get('cityId'));
+        /** @var Generator $generator */
+        $generator = $this->get('service.generator');
+        return new Response($generator->generatePizzas($this->get('request')));
     }
+
+
+
 }

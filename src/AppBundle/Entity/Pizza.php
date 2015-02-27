@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Restaurant;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +63,15 @@ class Pizza
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Restaurant")
+     * @ORM\JoinTable(name="restaurant_pizza",
+     *      joinColumns={@ORM\JoinColumn(name="pizza_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="restaurant_id", referencedColumnName="id")}
+     *      )
+     */
+    private $restaurants;
 
 
 
@@ -211,5 +221,36 @@ class Pizza
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRestaurants()
+    {
+        return $this->restaurants;
+    }
+
+    /**
+     * Adds restaurant
+     *
+     * @param Restaurant $restaurant
+     * @return City
+     */
+    public function addRestaurant(\AppBundle\Entity\Restaurant $restaurant)
+    {
+        $this->restaurants[] = $restaurant;
+
+        return $this;
+    }
+
+    /**
+     * Removes restaurant
+     *
+     * @param Restaurant $restaurant
+     */
+    public function removeRestaurant(Restaurant $restaurant)
+    {
+        $this->restaurants->removeElement($restaurant);
     }
 }

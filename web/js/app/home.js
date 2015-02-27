@@ -61,7 +61,7 @@ var App = App || {};
             },
 
             hasValues: function() {
-                return ($('#restaurant-ctr').find('option').length > 0);
+                return $('#restaurant-ctr').find('option').length > 0;
             },
 
             setValues: function(cityId, callback) {
@@ -71,7 +71,7 @@ var App = App || {};
                     success: function(response) {
                         $('#restaurant-ctr').html(response);
                         $('#restaurant').focus().select();
-                        callback;
+                        callback();
                     }
                 });
             },
@@ -122,6 +122,8 @@ var App = App || {};
                     _this.Restaurant.setValues(_this.City.getId(), function() {
                         if (_this.Restaurant.hasValues()) {
                             _this.Generator.enable();
+                        } else {
+                            _this.Generator.disable();
                         }
                     });
                 }
@@ -140,12 +142,11 @@ var App = App || {};
                     data: {
                         cityId: _this.City.getId(),
                         restaurantId: _this.Restaurant.getId(),
-                        qty:   $('#qty').val(),
-                        meaty: $('#meaty').prop('checked') ? 1 : 0,
-                        veggy: $('#veggy').prop('checked') ? 1 : 0,
-                        fishy: $('#fishy').prop('checked') ? 1 : 0,
-                        hot:   $('#hot').prop('checked') ? 1 : 0,
-                        nd:    $('#no_duplicates').prop('checked') ? 1 : 0
+                        qty: $('#qty').val(),
+                        meat: $('#meat').prop('checked') ? 1 : 0,
+                        vegetarian: $('#vegetarian').prop('checked') ? 1 : 0,
+                        fish: $('#fish').prop('checked') ? 1 : 0,
+                        hot: $('#hot').prop('checked') ? 1 : 0
                     },
                     success: function (response) {
                         console.log(response);
