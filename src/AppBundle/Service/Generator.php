@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Generator
 {
-    const HASH_LENGTH = 6;
+    const SLUG_LENGTH = 6;
 
     /** @var EntityManager */
     private $em;
@@ -63,7 +63,7 @@ class Generator
             }
         }
 
-        return $result->getHash();
+        return $result->getSlug();
     }
 
     /**
@@ -84,10 +84,10 @@ class Generator
             ->setDateCreated(time());
 
         do {
-            $hash = $this->generateHash();
-        } while($this->hashExists($hash));
+            $slug = $this->generateSlug();
+        } while($this->slugExists($slug));
 
-        $result->setHash($hash);
+        $result->setSlug($slug);
         $this->em->persist($result);
         $this->em->flush();
 
@@ -111,28 +111,28 @@ class Generator
     /**
      * @return string
      */
-    private function generateHash()
+    private function generateSlug()
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         $charactersLength = strlen($characters);
-        $hash = '';
-        for ($i = 0; $i < self::HASH_LENGTH; $i++) {
-            $hash .= $characters[rand(0, $charactersLength - 1)];
+        $result = '';
+        for ($i = 0; $i < self::SLUG_LENGTH; $i++) {
+            $result .= $characters[rand(0, $charactersLength - 1)];
         }
 
-        return $hash;
+        return $result;
     }
 
     /**
-     * @param string $hash
+     * @param string $slug
      *
      * @return bool
      */
-    private function hashExists($hash)
+    private function slugExists($slug)
     {
-        $query = "SELECT `id` FROM `result` WHERE `hash` = :hash";
+        $query = "SELECT `id` FROM `result` WHERE `slug` = :slug";
         $statement = $this->em->getConnection()->prepare($query);
-        $statement->bindValue(':hash', $hash);
+        $statement->bindValue(':slug', $slug);
 
         return (bool) $statement->fetchColumn();
     }

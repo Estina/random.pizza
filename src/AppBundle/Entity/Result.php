@@ -50,9 +50,9 @@ class Result
     /**
      * @var string
      *
-     * @ORM\Column(name="hash", type="string", length=6, nullable=false)
+     * @ORM\Column(name="slug", type="string", length=6, nullable=false)
      */
-    private $hash;
+    private $slug;
 
     /**
      * @var integer
@@ -182,12 +182,13 @@ class Result
     /**
      * Set hash
      *
-     * @param string $hash
+     * @param string $slug
+     *
      * @return Result
      */
-    public function setHash($hash)
+    public function setSlug($slug)
     {
-        $this->hash = $hash;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -197,9 +198,9 @@ class Result
      *
      * @return string 
      */
-    public function getHash()
+    public function getSlug()
     {
-        return $this->hash;
+        return $this->slug;
     }
 
     /**

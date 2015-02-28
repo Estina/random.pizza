@@ -26,6 +26,8 @@ class AppController extends Controller
      * @Route("/cities/{countryCode}")
      * @Method("GET")
      *
+     * @param string $countryCode
+     *
      * @return Response
      */
     public function citiesAction($countryCode)
@@ -39,6 +41,8 @@ class AppController extends Controller
     /**
      * @Route("/restaurants/{cityId}")
      * @Method("GET")
+     *
+     * @param int $cityId
      *
      * @return Response
      */
@@ -55,6 +59,20 @@ class AppController extends Controller
      * @Method("POST")
      */
     public function generateAction()
+    {
+        /** @var Generator $generator */
+        $generator = $this->get('service.generator');
+        /** @var Request $request */
+        $request = $this->get('request');
+
+        return new Response($generator->generatePizzas($request));
+    }
+
+    /**
+     * @Route("/generate")
+     * @Method("POST")
+     */
+    public function displayResultAction($hash)
     {
         /** @var Generator $generator */
         $generator = $this->get('service.generator');
