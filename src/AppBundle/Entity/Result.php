@@ -180,7 +180,7 @@ class Result
     }
 
     /**
-     * Set hash
+     * Set slug
      *
      * @param string $slug
      *

@@ -7,6 +7,15 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-    service.generator:
-      class: AppBundle\Service\Generator
-      arguments: [@doctrine.orm.entity_manager]
+    service.slug:
+        class: AppBundle\Service\Slug
+        arguments: [@doctrine.orm.entity_manager]
+    service.city:
+        class: AppBundle\Service\City
+        arguments: [@doctrine.orm.entity_manager]
+    service.restaurant:
+        class: AppBundle\Service\Restaurant
+        arguments: [@doctrine.orm.entity_manager]
+    service.pizza:
+        class: AppBundle\Service\Pizza
+        arguments: [@doctrine.orm.entity_manager, @service.slug]

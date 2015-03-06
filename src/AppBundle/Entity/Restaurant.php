@@ -191,33 +191,4 @@ class Restaurant
     {
         return $this->pizzas;
     }
-
-    /**
-     * @param bool $meat
-     * @param bool $fish
-     * @param bool $vegetarian
-     * @param bool $hot
-     *
-     * @return array
-     */
-    public function getPizzasFiltered($meat, $fish, $vegetarian, $hot)
-    {
-        $result = [];
-        $pizzas = $this->getPizzas()->filter(
-            function($pizza) use ($meat, $fish, $vegetarian, $hot)  {
-                return (
-                    ($meat && $pizza->getMeat()) ||
-                    ($fish && $pizza->getFish()) ||
-                    ($vegetarian && $pizza->getVegetarian()) ||
-                    ($hot && $pizza->getHot())
-                );
-            }
-        );
-
-        foreach ($pizzas as $pizza) {
-            $result[] = $pizza->getId();
-        }
-
-        return $result;
-    }
 }
