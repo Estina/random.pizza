@@ -91,7 +91,7 @@ class AppController extends Controller
 
         if (!$pizzas) {
             throw new \InvalidArgumentException(
-                sprintf('No pizzas found, options: ', print_r($options, true))
+                sprintf('No pizzas found, options: %s', print_r($options, true))
             );
         }
 
@@ -130,7 +130,7 @@ class AppController extends Controller
     private function getOptions(Request $request)
     {
         $options = [
-            'countryCode' => substr(preg_replace('/[^a-z]/', '', $request->get('countryCode')), 0, 2),
+            'countryCode' => substr(preg_replace('/[^A-Z]/', '', $request->get('countryCode')), 0, 2),
             'cityId' => (int) $request->get('cityId'),
             'restaurantId' => (int) $request->get('restaurantId'),
             'qty' => (int) $request->get('qty'),
