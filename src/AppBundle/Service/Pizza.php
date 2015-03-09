@@ -92,6 +92,30 @@ class Pizza
         ));
     }
 
+    /**
+     * @param string $slug
+     *
+     * @return array
+     */
+    public function getResult($slug)
+    {
+        $query = "SELECT result.id AS result_id,
+                         city.name AS city,
+                         restaurant.name AS restaurant
+                  FROM `result`
+                  INNER JOIN city
+                    ON city.id = result.city_id
+                  INNER JOIN restaurant
+                    ON restaurant.id = result.restaurant_id
+                  WHERE result.slug = :slug";
+
+        $statement = $this->em->getConnection()->prepare($query);
+        $statement->bindValue(':slug', $slug);
+        $statement->execute();
+
+        return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
 
 
 

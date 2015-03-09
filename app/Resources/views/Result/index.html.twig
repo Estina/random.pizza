@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block controller %}result{% endblock %}
+
+{% block content %}
+
+    <div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <fieldset>
+
+                <legend>"{{ result['restaurant'] }}", {{ result['city'] }}</legend>
+
+                <div class="col-md-12 result-board">
+                    <ol>
+                    </ol>
+                </div>
+
+                <div class="col-md-12 result-share text-center">
+                    <span class='st_facebook_large' displayText='Facebook'></span>
+                    <span class='st_twitter_large' displayText='Tweet'></span>
+                    <span class='st_googleplus_large' displayText='Google +'></span>
+                    <span class='st_email_large' displayText='Email'></span>
+                </div>
+
+                <div class="col-md-12 result-description">
+                    <p>
+                        These pizzas have been generated randomly on April 5, 2015 for "Express Pizza" in Vilnius, Lithuania.
+                    </p>
+                    <p>&nbsp;</p>
+                    <p class="text-center"><strong>Enjoy your pizza!</strong></p>
+                </div>
+
+
+
+            </fieldset>
+        </div>
+    </div>
+
+
+{% endblock %}

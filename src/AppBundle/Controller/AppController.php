@@ -112,11 +112,13 @@ class AppController extends Controller
     public function displayResultAction($slug)
     {
         /** @var Pizza $pizzaService */
-        $generator = $this->get('service.pizza');
-        /** @var Request $request */
-        $request = $this->get('request');
+        $pizzaService = $this->get('service.pizza');
 
-        return new Response($slug);
+        $result = $pizzaService->getResult($slug);
+
+        return $this->render('Result/index.html.twig', [
+            'result' => $result
+        ]);
     }
 
     /**
@@ -126,8 +128,6 @@ class AppController extends Controller
      */
     private function getOptions(Request $request)
     {
-
-
         $options = [
             'countryCode' => trim($request->get('countryCode')),
             'cityId' => (int) $request->get('cityId'),
