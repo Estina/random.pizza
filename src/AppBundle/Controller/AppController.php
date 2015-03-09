@@ -2,16 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity;
 use AppBundle\Service\City;
 use AppBundle\Service\Pizza;
 use AppBundle\Service\Restaurant;
 
-use AppBundle\Entity;
-
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -90,9 +89,7 @@ class AppController extends Controller
         $pizzas = $restaurantService->getPizzas($restaurant, $options);
 
         if (!$pizzas) {
-            throw new \InvalidArgumentException(
-                sprintf('No pizzas found, options: %s', print_r($options, true))
-            );
+            return new JsonResponse(['error' => 'No pizzas found. Try different settings.']);
         }
 
         $ids = $pizzaService->getRandomIds($pizzas, $options['qty']);
@@ -105,12 +102,12 @@ class AppController extends Controller
             }
         }
 
-        return new Response($result->getSlug());
+        return new JsonResponse(['href' => $result->getSlug()]);
     }
 
     /**
      * @Route("/{slug}", requirements={"slug" = "^[a-z0-9]{6}$"})
-     * @Method("POST")
+     * @Method("GET")
      */
     public function displayResultAction($slug)
     {
@@ -129,8 +126,10 @@ class AppController extends Controller
      */
     private function getOptions(Request $request)
     {
+
+
         $options = [
-            'countryCode' => substr(preg_replace('/[^A-Z]/', '', $request->get('countryCode')), 0, 2),
+            'countryCode' => trim($request->get('countryCode')),
             'cityId' => (int) $request->get('cityId'),
             'restaurantId' => (int) $request->get('restaurantId'),
             'qty' => (int) $request->get('qty'),
@@ -139,6 +138,10 @@ class AppController extends Controller
             'vegetarian' => (bool) $request->get('vegetarian'),
             'hot' => (bool) $request->get('hot')
         ];
+
+        $options['countryCode'] = strtolower($options['countryCode']);
+        $options['countryCode'] = preg_replace('/[^a-z]/', '', $options['countryCode']);
+        $options['countryCode'] = substr($options['countryCode'], 0, 2);
 
         $options['qty'] = max(1, $options['qty']);
         $options['qty'] = min(10, $options['qty']);

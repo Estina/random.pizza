@@ -98,6 +98,29 @@ var App = App || {};
 
         },
 
+        Settings: {
+
+            qty: function() {
+                return $('#qty').val();
+            },
+
+            meat: function() {
+                return $('#meat').prop('checked') ? 1 : 0;
+            },
+
+            vegetarian: function() {
+                return $('#vegetarian').prop('checked') ? 1 : 0;
+            },
+
+            fish: function() {
+                return $('#fish').prop('checked') ? 1 : 0;
+            },
+
+            hot: function() {
+                return $('#hot').prop('checked') ? 1 : 0;
+            }
+        },
+
         init: function() {
             var _this = this;
 
@@ -143,15 +166,21 @@ var App = App || {};
                         countryCode: _this.Country.getCode(),
                         cityId: _this.City.getId(),
                         restaurantId: _this.Restaurant.getId(),
-                        qty: $('#qty').val(),
-                        meat: $('#meat').prop('checked') ? 1 : 0,
-                        vegetarian: $('#vegetarian').prop('checked') ? 1 : 0,
-                        fish: $('#fish').prop('checked') ? 1 : 0,
-                        hot: $('#hot').prop('checked') ? 1 : 0
+                        qty: _this.Settings.qty(),
+                        meat: _this.Settings.meat(),
+                        vegetarian: _this.Settings.vegetarian(),
+                        fish: _this.Settings.fish(),
+                        hot: _this.Settings.hot()
                     },
                     success: function (response) {
-                        console.log(response);
-                        //window.location.href = "/" + response;
+                        if ('undefined' != typeof response.error) {
+                            var alert = $('.alert');
+                            alert.removeClass('hidden');
+                            alert.find('span.message').text(response.error);
+                        } else {
+                            window.location.href = "/" + response.href;
+                        }
+
                     }
                 });
             });
