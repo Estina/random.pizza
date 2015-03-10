@@ -8,11 +8,29 @@
         <div class="col-md-6 col-md-offset-3 column">
             <fieldset>
 
-                <legend>"{{ result['restaurant'] }}", {{ result['city'] }}</legend>
+                <legend>Result</legend>
 
                 <div class="col-md-12 result-board">
-                    <ol>
-                    </ol>
+
+                    {% if result['pizzas']|length == 1 %}
+
+                        <div class="big-text">
+                            {{ result['pizzas'][0].name }}
+                            {% if result['pizzas'][0]['qty'] > 1 %}x {{ result['pizzas'][0]['qty'] }}{% endif  %}
+                        </div>
+
+                    {%  else %}
+
+                        <ol>
+                            {% for pizza in result['pizzas'] %}
+                                <li>
+                                    {{ pizza.name }}
+                                    {% if pizza.qty > 1 %}x {{ pizza.qty }}{% endif  %}
+                                </li>
+                            {% endfor %}
+                        </ol>
+
+                    {% endif %}
                 </div>
 
                 <div class="col-md-12 result-share text-center">
@@ -24,7 +42,8 @@
 
                 <div class="col-md-12 result-description">
                     <p>
-                        These pizzas have been generated randomly on April 5, 2015 for "Express Pizza" in Vilnius, Lithuania.
+                        <input type="hidden" name="date_utc" id="date-utc" value="{{ result['date_created'] }}">
+                        Generated randomly on <span id="date-created"></span> for "{{ result['restaurant'] }}" located in {{ result['city'] }}.
                     </p>
                     <p>&nbsp;</p>
                     <p class="text-center"><strong>Enjoy your pizza!</strong></p>

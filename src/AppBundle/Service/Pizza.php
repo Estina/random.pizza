@@ -100,6 +100,7 @@ class Pizza
     public function getResult($slug)
     {
         $query = "SELECT result.id AS result_id,
+                         result.date_created,
                          city.name AS city,
                          restaurant.name AS restaurant
                   FROM `result`
@@ -114,6 +115,27 @@ class Pizza
         $statement->execute();
 
         return $statement->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * @param int $resultId
+     *
+     * @return array
+     */
+    public function getPizzas($resultId)
+    {
+        $query = "SELECT rp.qty,
+                         p.name
+                  FROM `result_pizza` rp
+                  INNER JOIN pizza p
+                    ON p.id = rp.pizza_id
+                  WHERE rp.result_id = :resultId";
+
+        $statement = $this->em->getConnection()->prepare($query);
+        $statement->bindValue(':resultId', $resultId);
+        $statement->execute();
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 

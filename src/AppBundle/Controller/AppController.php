@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AppController extends Controller
@@ -115,6 +116,11 @@ class AppController extends Controller
         $pizzaService = $this->get('service.pizza');
 
         $result = $pizzaService->getResult($slug);
+        if (!$result) {
+            throw new NotFoundHttpException("Result not found");
+        }
+
+        $result['pizzas'] = $pizzaService->getPizzas($result['result_id']);
 
         return $this->render('Result/index.html.twig', [
             'result' => $result
