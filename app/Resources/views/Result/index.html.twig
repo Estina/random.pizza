@@ -68,7 +68,8 @@
                 <p>
                     <input type="hidden" name="date_utc" id="date-utc" value="{{ result['date_created'] }}">
                     Generated on <strong><span id="date-created"></span></strong>.
-                    Request was to generate <strong>{{ result['options'].qty }}</strong> random pizzas for <strong>"{{ result['restaurant'] }}"</strong>
+                    The request was to generate <strong>{{ result['options'].qty }}</strong> random ({{ flavor(result['options']) }})
+                    pizza{% if result['options'].qty > 1 %}s{% endif %} for <strong>"{{ result['restaurant'] }}"</strong>
                     located in <strong>{{ result['city'] }}</strong>.
                 </p>
                 <p>&nbsp;</p>
