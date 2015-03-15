@@ -2,12 +2,7 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\City;
-use AppBundle\Entity\Restaurant;
-use AppBundle\Entity\Result;
-
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Slug service
