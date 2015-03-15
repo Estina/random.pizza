@@ -67,12 +67,13 @@ class Result
     /**
      * Set options
      *
-     * @param string $options
+     * @param array $options
+     *
      * @return Result
      */
     public function setOptions($options)
     {
-        $this->options = json_encode($options);
+        $this->options = $options;
 
         return $this;
     }

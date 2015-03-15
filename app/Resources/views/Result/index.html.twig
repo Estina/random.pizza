@@ -33,27 +33,52 @@
                     {% endif %}
                 </div>
 
-                <div class="col-md-12 result-share text-center">
-                    <span class='st_facebook_large' displayText='Facebook'></span>
-                    <span class='st_twitter_large' displayText='Tweet'></span>
-                    <span class='st_googleplus_large' displayText='Google +'></span>
-                    <span class='st_email_large' displayText='Email'></span>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <fieldset>
+                <legend>Share</legend>
+
+                {% set resultUrl = 'http://random.pizza/' ~ result['slug'] %}
+
+                <div class="row result-share">
+                    <div class="col-md-6">
+                        <input id="share-url" name="share-url" value="{{ resultUrl }}" class="form-control input-md" type="text">
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="social">
+                            <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u={{ resultUrl }}" title="Share on Facebook"></a></li>
+                            <li class="twitter"><a href="https://twitter.com/home?status={{ resultUrl }}" title="Share on Twitter"></a></li>
+                            <li class="googleplus"><a href="https://plus.google.com/share?url={{ resultUrl }}" title="Share on Google +"></a></li>
+                        </ul>
+                    </div>
                 </div>
-
-                <div class="col-md-12 result-description">
-                    <p>
-                        <input type="hidden" name="date_utc" id="date-utc" value="{{ result['date_created'] }}">
-                        Generated randomly on <span id="date-created"></span> for "{{ result['restaurant'] }}" located in {{ result['city'] }}.
-                    </p>
-                    <p>&nbsp;</p>
-                    <p class="text-center"><strong>Enjoy your pizza!</strong></p>
-                </div>
-
-
 
             </fieldset>
         </div>
     </div>
+
+    <div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <fieldset>
+                <legend>Info</legend>
+                <p>
+                    <input type="hidden" name="date_utc" id="date-utc" value="{{ result['date_created'] }}">
+                    Generated on <strong><span id="date-created"></span></strong>.
+                    Request was to generate <strong>{{ result['options'].qty }}</strong> random pizzas for <strong>"{{ result['restaurant'] }}"</strong>
+                    located in <strong>{{ result['city'] }}</strong>.
+                </p>
+                <p>&nbsp;</p>
+                <p class="text-center enjoy"><strong>Enjoy your pizza!</strong></p>
+
+            </fieldset>
+        </div>
+    </div>
+
+
 
 
 {% endblock %}

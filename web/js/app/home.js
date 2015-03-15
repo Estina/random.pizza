@@ -49,7 +49,7 @@ var App = App || {};
         Restaurant: {
 
             getId: function() {
-                return $('#city').val();
+                return $('#restaurant').val();
             },
 
             setEmpty: function() {

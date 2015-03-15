@@ -5,6 +5,10 @@ body {
 .row {
     margin: 20px 0 30px 0;
 }
+a.no-hover:hover {
+    text-decoration: none;
+    outline: none;
+}
 h1 {
     margin:-10px 0;
     font-size: 48px;
@@ -56,4 +60,42 @@ legend {
 .result-share {
     margin-top: 40px;
     height:40px;
+    padding: 0;
+}
+#share-url {
+    margin-bottom: 20px;
+}
+.social {
+    position:absolute;
+    padding:0;
+    left: 50%;
+    margin-left:-77px;
+}
+.social li {
+    list-style:none;
+    display:block;
+    width:32px;
+    height: 32px;
+    float:left;
+    margin-right:16px;
+}
+.social a {
+    display:block;
+    width: 32px;
+    height:32px;
+}
+.facebook {
+    background-image: url("/img/facebook_32.png");
+}
+.twitter {
+    background-image: url("/img/twitter_32.png");
+}
+.googleplus {
+    background-image: url("/img/googleplus_32.png");
+}
+.enjoy {
+    font-size: 48px;
+    font-family: 'Just Me Again Down Here', cursive;
+    color:#47a447;
+
 }

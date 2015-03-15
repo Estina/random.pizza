@@ -101,6 +101,8 @@ class Pizza
     {
         $query = "SELECT result.id AS result_id,
                          result.date_created,
+                         result.options,
+                         result.slug,
                          city.name AS city,
                          restaurant.name AS restaurant
                   FROM `result`

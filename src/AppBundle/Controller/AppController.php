@@ -120,6 +120,7 @@ class AppController extends Controller
             throw new NotFoundHttpException("Result not found");
         }
 
+        $result['options'] = json_decode($result['options']);
         $result['pizzas'] = $pizzaService->getPizzas($result['result_id']);
 
         return $this->render('Result/index.html.twig', [
