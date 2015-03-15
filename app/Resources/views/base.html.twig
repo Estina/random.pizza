@@ -16,7 +16,7 @@
     <meta name="keywords" content="random.pizza, random pizza, random pizza generator, pizza randomizer, pizza generator, randomize pizzas">
     <meta name="author" content="UAB Estina">
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" >
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Just+Me+Again+Down+Here&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -25,11 +25,10 @@
     <script type="text/javascript" src="{{ asset('js/html5shiv.js') }}"></script>
     <![endif]-->
 
-    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/app/common.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/app/home.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>
+    {% block scripts %}{% endblock %}
 
 {% endblock %}
 <head>

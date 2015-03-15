@@ -4,6 +4,8 @@
 {% block description %}{{ result['options'].qty }} random ({{ flavor(result['options']) }})
     pizza{% if result['options'].qty > 1 %}s{% endif %} for {{ result['restaurant'] }} located in {{ result['city'] }}.{% endblock %}
 
+{% block scripts %}<script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>{% endblock %}
+
 {% block controller %}result{% endblock %}
 
 {% block content %}
