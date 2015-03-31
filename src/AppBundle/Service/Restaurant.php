@@ -62,6 +62,26 @@ class Restaurant
     }
 
     /**
+     * @param int $cityId
+     *
+     * @return int
+     */
+    public function getRandomId($cityId)
+    {
+        $query = "SELECT restaurant_id
+                  FROM `city_restaurant`
+                  WHERE city_id = :cityId
+                  ORDER BY RAND()
+                  LIMIT 1";
+
+        $statement = $this->em->getConnection()->prepare($query);
+        $statement->bindValue(':cityId', $cityId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return (int) $statement->fetchColumn();
+    }
+
+    /**
      *
      * @param Collection $pizzas
      * @param bool       $meat
