@@ -11,8 +11,91 @@ class PizzaExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('flavor', [$this, 'getFlavor'])
+            new \Twig_SimpleFunction('resultTitle', [$this, 'getTitle']),
+            new \Twig_SimpleFunction('resultMetaDescription', [$this, 'getMetaDescription']),
+            new \Twig_SimpleFunction('resultMetaKeywords', [$this, 'getMetaKeywords']),
+            new \Twig_SimpleFunction('resultDescription', [$this, 'getDescription'], ['is_safe' => array('html')])
         ];
+    }
+
+    /**
+     * @param array $generatedResult
+     *
+     * @return string
+     */
+    public function getTitle($generatedResult)
+    {
+        return sprintf(
+            '%d Random Pizza%s in %s, %s',
+            $generatedResult['options']->qty,
+            ($generatedResult['options']->qty > 1) ? 's' : '',
+            $generatedResult['restaurant'],
+            $generatedResult['city']
+        );
+    }
+
+    /**
+     * @param array $generatedResult
+     *
+     * @return string
+     */
+    public function getMetaDescription($generatedResult)
+    {
+        return sprintf(
+            '%d random (%s) pizza%s for %s located in %s: %s',
+            $generatedResult['options']->qty,
+            $this->getFlavor($generatedResult['options']),
+            ($generatedResult['options']->qty > 1) ? 's' : '',
+            $generatedResult['restaurant'],
+            $generatedResult['city'],
+            $this->getPizzas($generatedResult['pizzas'])
+        );
+    }
+
+    /**
+     * @param array $generatedResult
+     *
+     * @return string
+     */
+    public function getMetaKeywords($generatedResult)
+    {
+        return sprintf(
+            'random.pizza, random pizza, random pizza generator, %s, %s, %s',
+            $generatedResult['restaurant'],
+            $generatedResult['city'],
+            $this->getPizzas($generatedResult['pizzas'])
+        );
+    }
+
+    /**
+     * @param array $generatedResult
+     *
+     * @return string
+     */
+    public function getDescription($generatedResult)
+    {
+        $result = sprintf(
+            'The request was to generate <strong>%d</strong> random <strong>(%s)</strong> pizza%s ',
+            $generatedResult['options']->qty,
+            $this->getFlavor($generatedResult['options']),
+            ($generatedResult['options']->qty > 1) ? 's' : ''
+        );
+
+        if (0 == $generatedResult['options']->restaurantId) {
+            $result .= sprintf(
+                'for <strong>random</strong> restaurant located in <strong>%s</strong>. So, we\'ve picked "<strong>%s</strong>" for you!',
+                $generatedResult['city'],
+                $generatedResult['restaurant']
+            );
+        } else {
+            $result .= sprintf(
+                'for <strong>%s</strong> located in <strong>%s</strong>.',
+                $generatedResult['restaurant'],
+                $generatedResult['city']
+            );
+        }
+
+        return $result;
     }
 
     /**
@@ -20,7 +103,7 @@ class PizzaExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function getFlavor($options)
+    private function getFlavor($options)
     {
         $result = '';
         $available = [];
@@ -45,6 +128,25 @@ class PizzaExtension extends \Twig_Extension
         }
 
         return $result;
+    }
+
+    /**
+     * @param array $pizzas
+     *
+     * @return string
+     */
+    private function getPizzas($pizzas)
+    {
+        $result  = [];
+        foreach ($pizzas as $pizza) {
+            if (1 < $pizza['qty']) {
+                $result[] = $pizza['name'] . ' x ' . $pizza['qty'];
+            } else {
+                $result[] = $pizza['name'];
+            }
+        }
+
+        return implode(', ', $result);
     }
 
     /**

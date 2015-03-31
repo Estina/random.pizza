@@ -1,8 +1,8 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Random Pizza - Result{% endblock %}
-{% block description %}{{ result['options'].qty }} random ({{ flavor(result['options']) }})
-    pizza{% if result['options'].qty > 1 %}s{% endif %} for {{ result['restaurant'] }} located in {{ result['city'] }}.{% endblock %}
+{% block title %}{{ resultTitle(result) }}{% endblock %}
+{% block metaDescription %}{{ resultMetaDescription(result) }}{% endblock %}
+{% block metaKeywords %}{{ resultMetaKeywords(result) }}{% endblock %}
 
 {% block scripts %}<script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>{% endblock %}
 
@@ -74,10 +74,7 @@
                 <p>
                     <input type="hidden" name="date_utc" id="date-utc" value="{{ result['date_created'] }}">
                     Generated on <strong><span id="date-created"></span></strong>.
-                    The request was to generate <strong>{{ result['options'].qty }}</strong> random
-                    <strong>({{ flavor(result['options']) }})</strong>
-                    pizza{% if result['options'].qty > 1 %}s{% endif %} for <strong>"{{ result['restaurant'] }}"</strong>
-                    located in <strong>{{ result['city'] }}</strong>.
+                    {{ resultDescription(result) }}
                 </p>
                 <p>&nbsp;</p>
                 <p class="text-center enjoy"><strong>Enjoy your pizza!</strong></p>
