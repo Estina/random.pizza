@@ -140,6 +140,19 @@ class Pizza
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param Entity\Pizza $pizza
+     *
+     * @return Entity\Pizza
+     */
+    public function savePizza(Entity\Pizza $pizza)
+    {
+        $this->em->persist($pizza);
+        $this->em->flush();
+
+        return $pizza;
+    }
+
 
 
 

@@ -107,4 +107,31 @@ class Restaurant
         return $result;
     }
 
+    /**
+     * @param $name
+     * @param array $cities
+     * @param array $pizzas
+     *
+     * @return Entity\Restaurant
+     */
+    public function save($name, array $cities, array $pizzas)
+    {
+        $restaurant = new Entity\Restaurant();
+        $restaurant->setName($name);
+        $restaurant->setApproved(false);
+
+        foreach ($cities as $city) {
+            $restaurant->addCity($city);
+        }
+
+        foreach ($pizzas as $pizza) {
+            $restaurant->addPizza($pizza);
+        }
+
+        $this->em->persist($restaurant);
+        $this->em->flush();
+
+        return $restaurant;
+    }
+
 }

@@ -17,6 +17,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Restaurant
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
@@ -26,18 +35,23 @@ class Restaurant
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     */
+    private $created;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="last_updated", type="datetime", nullable=false)
      */
     private $lastUpdated;
 
     /**
-     * @var integer
+     * @var boolean
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="approved", type="boolean", nullable=false)
      */
-    private $id;
+    private $approved;
 
     /**
      * @ORM\ManyToMany(targetEntity="City")
@@ -62,11 +76,20 @@ class Restaurant
      */
     public function __construct()
     {
+        $this->created = new \DateTime();
         $this->cities = new ArrayCollection();
         $this->pizzas = new ArrayCollection();
     }
 
-
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -89,6 +112,29 @@ class Restaurant
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Restaurant
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 
     /**
@@ -115,13 +161,27 @@ class Restaurant
     }
 
     /**
-     * Get id
+     * Set approved
      *
-     * @return integer 
+     * @param boolean $approved
+     *
+     * @return Restaurant
      */
-    public function getId()
+    public function setApproved($approved)
     {
-        return $this->id;
+        $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get approved
+     *
+     * @return boolean
+     */
+    public function getApproved()
+    {
+        return $this->approved;
     }
 
     /**

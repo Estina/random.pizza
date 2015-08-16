@@ -17,6 +17,14 @@
     <div class="row clearfix">
         <div class="col-md-8 col-md-offset-2 column">
             <form class="form-horizontal" id="restaurant-form" method="POST">
+                {% for restaurant in app.session.flashbag.get('saved') %}
+                    <div class="alert alert-success" role="alert">
+                        <div class="text-center">
+                            <span class="message">New pizzeria: <strong>{{ restaurant }}</strong> saved successfully!</span>
+                        </div>
+                    </div>
+                {% endfor %}
+
                 <fieldset>
                     <legend>Pizzeria</legend>
 
@@ -59,12 +67,6 @@
 
                         </div>
 
-                    </div>
-
-                    <div class="alert alert-danger hidden" role="alert">
-                        <div class="text-center">
-                            <span class="message"></span>
-                        </div>
                     </div>
 
                 </fieldset>

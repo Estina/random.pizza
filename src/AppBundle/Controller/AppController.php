@@ -136,22 +136,37 @@ class AppController extends Controller
 
     /**
      * @Route("/form")
+     *
+     * @return Response
      */
     public function formAction()
     {
         /** @var Request $request */
         $request = $this->get('request');
+        /** @var Restaurant $restaurantService */
+        $restaurantService = $this->get('service.restaurant');
 
-        return $this->render('Form/index.html.twig', [
+        if ($request->isMethod('POST')) {
+            $name = $request->get('restaurant');
+            $cities = $this->getCities();
+            if ($name && $cities) {
+                $pizzas = $this->getPizzas();
+                $restaurant = $restaurantService->save($name, $cities, $pizzas);
+                $this->addFlash('saved', $restaurant->getName());
+                $this->redirect($this->generateUrl('app_app_form'));
+            }
+        }
 
-        ]);
-
-
+        return $this->render('Form/index.html.twig');
     }
 
     /**
      * @Route("/form/more/{lastIndex}")
      * @Method("GET")
+     *
+     * @param int $lastIndex
+     *
+     * @return Response
      */
     public function morePizzasAction($lastIndex)
     {
@@ -194,6 +209,65 @@ class AppController extends Controller
         return $options;
     }
 
+    /**
+     * @return array
+     */
+    private function getCities()
+    {
+        /** @var Request $request */
+        $request = $this->get('request');
+        /** @var City $cityService */
+        $cityService = $this->get('service.city');
+
+        if (!$request->get('city')) {
+            throw new \InvalidArgumentException('No cities submitted');
+        }
+
+        $result = [];
+        foreach ($request->get('city') as $cityId) {
+            $result[] = $cityService->get($cityId);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    private function getPizzas()
+    {
+        /** @var Request $request */
+        $request = $this->get('request');
+        /** @var Pizza $pizzaService */
+        $pizzaService = $this->get('service.pizza');
+
+        $result = [];
+        $post = $request->request->all();
+        foreach ($post as $param => $value) {
+            if (false !== strpos($param, 'pizza_')) {
+                list($temp, $index) = explode('_', $param);
+                $value = preg_replace('/[^A-Za-z0-9 \']/', '', $value);
+                if (!empty($value)) {
+
+                    $pizza = new Entity\Pizza();
+                    $pizza->setName(trim($value));
+                    $pizza->setMeat((bool) $request->get('meat_' . $index, false));
+                    $pizza->setVegetarian((bool) $request->get('vegetarian_' . $index, false));
+                    $pizza->setFish((bool) $request->get('fish_' . $index, false));
+                    $pizza->setHot((bool) $request->get('hot_' . $index, false));
+                    $pizza = $pizzaService->savePizza($pizza);
+
+                    $result[] = $pizza;
+                }
+            }
+        }
+
+        if (!$result) {
+            throw new \InvalidArgumentException('No pizzas submitted');
+        }
+
+        return $result;
+    }
 
 
 }
