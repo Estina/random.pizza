@@ -1,0 +1,12 @@
+
+<select id="city" {% if multi == true %}name="city[]"{% else %}name="city"{% endif %} class="form-control" {% if multi == true %}multiple="multiple"{% endif %}>
+
+    {% if multi == false %}
+        <option value="">select</option>
+    {% endif %}
+
+    {% for city in list %}
+        <option value="{{ city.id }}">{{ city.name }}</option>
+    {% endfor %}
+</select>
+

@@ -28,22 +28,23 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/cities/{countryCode}")
+     * @Route("/cities/{countryCode}/{multi}")
      * @Method("GET")
      *
      * @param string $countryCode
      *
      * @return Response
      */
-    public function citiesAction($countryCode)
+    public function citiesAction($countryCode, $multi = false)
     {
         /** @var City $cityService */
         $cityService = $this->get('service.city');
         $params = [
-            'list' => $cityService->getCitiesByCountryCode($countryCode)
+            'list' => $cityService->getCitiesByCountryCode($countryCode),
+            'multi' => (bool) $multi
         ];
 
-        return $this->render('Home/countries.html.twig', $params);
+        return $this->render('Home/cities.html.twig', $params);
     }
 
     /**
@@ -135,7 +136,6 @@ class AppController extends Controller
 
     /**
      * @Route("/form")
-     * @Method("GET")
      */
     public function formAction()
     {
@@ -147,6 +147,23 @@ class AppController extends Controller
         ]);
 
 
+    }
+
+    /**
+     * @Route("/form/more/{lastIndex}")
+     * @Method("GET")
+     */
+    public function morePizzasAction($lastIndex)
+    {
+        $lastIndex = max(10, $lastIndex);
+        if ($lastIndex > 190) {
+            return new Response('');
+        }
+
+        return $this->render('Form/more_pizzas.html.twig', [
+            'start' => ++$lastIndex,
+            'stop' => ($lastIndex + 9)
+        ]);
     }
 
     /**

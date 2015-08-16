@@ -21,15 +21,18 @@ span.dot {
 span.pizza {
     color:#dd392e;
 }
+legend {
+    font-size: 18px;
+}
+.form-control {
+    font-family: Arial, sans-serif;
+}
 #logo {
     width:64px;
     height:64px;
     position:relative;
     left:50%;
     margin-left:-32px;
-}
-legend {
-    font-size: 18px;
 }
 .result-board {
     background-color: #111;
@@ -97,5 +100,10 @@ legend {
     font-size: 48px;
     font-family: 'Just Me Again Down Here', cursive;
     color:#47a447;
-
+}
+.pizza-ctr {
+    padding-top: 40px;
+}
+.pizza-ctr .row {
+    margin:0;
 }

@@ -3,6 +3,7 @@ var App = App || {};
 (function($) {
 
     App.Common = {
+
         init: function() {
             var controller = $('body').data('controller');
             if ('undefined' != typeof controller) {

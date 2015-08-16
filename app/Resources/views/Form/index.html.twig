@@ -8,20 +8,20 @@
     random.pizza, form, submit new place
 {% endblock %}
 
-{% block scripts %}<script type="text/javascript" src="{{ asset('js/app/home.js') }}"></script>{% endblock %}
+{% block scripts %}<script type="text/javascript" src="{{ asset('js/app/form.js') }}"></script>{% endblock %}
 
 {% block controller %}form{% endblock %}
 
 {% block content %}
 
     <div class="row clearfix">
-        <div class="col-md-6 col-md-offset-3 column">
-            <form class="form-horizontal">
+        <div class="col-md-8 col-md-offset-2 column">
+            <form class="form-horizontal" id="restaurant-form" method="POST">
                 <fieldset>
-                    <legend>Company information</legend>
+                    <legend>Pizzeria</legend>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="country">Country</label>
+                        <label class="col-md-2 control-label" for="country">Country</label>
                         <div class="col-md-6">
                             <select id="country" name="country" class="form-control">
                                 <option value="">select</option>
@@ -31,16 +31,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="city">City</label>
+                        <label class="col-md-2 control-label" for="city">City</label>
                         <div class="col-md-6" id="city-ctr">
-                            <select id="city" name="city" class="form-control" disabled>
+                            <select id="city" name="city" class="form-control" disabled multiple="multiple">
                                 <option value="">select</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="restaurant">Company name</label>
+                        <label class="col-md-2 control-label" for="restaurant">Company name</label>
                         <div class="col-md-6" id="restaurant-ctr">
                             <input id="restaurant" name="restaurant" class="form-control">
                         </div>
@@ -50,35 +50,13 @@
 
                     <div class="form-group">
 
-                        <div class="col-md-6"><label class="control-label">Pizza</label></div>
-                        <div class="col-md-6"><label class="control-label">Flavors</label></div>
+                        <div class="col-md-7"><label class="control-label">Pizza</label></div>
+                        <div class="col-md-5"><label class="control-label">Flavors</label></div>
 
-                        <div class="form-group">
+                        <div id="pizza-ctr" class="pizza-ctr">
 
-                            <div class="col-md-6">
-                                <input id="pizza_1" name="pizza_1" type="text" class="form-control">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="checkbox-inline" for="meat_1">
-                                    <input name="meat_1" id="meat_1" type="checkbox">
-                                    Meaty
-                                </label>
+                            {% include 'Form/more_pizzas.html.twig' with {'start': 1, 'stop': 10} only %}
 
-                                <label class="checkbox-inline" for="vegetarian_1">
-                                    <input name="vegetarian_1" id="vegetarian_1" type="checkbox">
-                                    Veggy
-                                </label>
-
-                                <label class="checkbox-inline" for="fish_1">
-                                    <input name="fish_1" id="fish_1" type="checkbox">
-                                    Fishy
-                                </label>
-
-                                <label class="checkbox-inline" for="hot_1">
-                                    <input name="hot_1" id="hot_1" type="checkbox">
-                                    Hot!
-                                </label>
-                            </div>
                         </div>
 
                     </div>
@@ -95,9 +73,16 @@
     </div>
 
     <div class="row clearfix">
-        <div class="col-md-2 col-md-offset-5 column generate-ctr">
-            <button id="submit" type="button" class="btn btn-lg btn-block btn-success" disabled>Submit</button>
+        <div class="col-md-3 col-md-offset-3 column generate-ctr">
+            <button id="add" type="button" class="btn btn-lg btn-block btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                more pizzas
+            </button>
         </div>
+        <div class="col-md-3 column generate-ctr">
+            <button id="submit" type="submit" class="btn btn-lg btn-block btn-success">Submit</button>
+        </div>
+
     </div>
 
 
