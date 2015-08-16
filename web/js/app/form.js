@@ -69,7 +69,7 @@ var App = App || {};
             },
 
             getMore: function() {
-                var lastIndex = $(document.getElementById('pizza-ctr')).find('label.pizza-index').last().data('index');
+                var lastIndex = $(document.getElementById('pizza-ctr')).find('.pizza-row').last().data('index');
                 $.ajax({
                     type: 'get',
                     url: '/form/more/' + lastIndex,
