@@ -121,6 +121,21 @@ class City
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getApprovedRestaurants()
+    {
+        $result = [];
+        foreach ($this->restaurants as $restaurant) {
+            if ($restaurant->getApproved()) {
+                $result[] = $restaurant;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Adds restaurant
      *
      * @param Restaurant $restaurant

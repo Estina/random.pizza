@@ -62,7 +62,7 @@ class AppController extends Controller
         $params = [];
         try {
             $city = $cityService->get((int) $cityId);
-            $params = ['list' => $city->getRestaurants()];
+            $params = ['list' => $city->getApprovedRestaurants()];
         } catch (\InvalidArgumentException $e) {
             // do nothing
         }
