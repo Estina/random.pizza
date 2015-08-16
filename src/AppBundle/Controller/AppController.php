@@ -134,6 +134,22 @@ class AppController extends Controller
     }
 
     /**
+     * @Route("/form")
+     * @Method("GET")
+     */
+    public function formAction()
+    {
+        /** @var Request $request */
+        $request = $this->get('request');
+
+        return $this->render('Form/index.html.twig', [
+
+        ]);
+
+
+    }
+
+    /**
      * @param Request $request
      *
      * @return array
