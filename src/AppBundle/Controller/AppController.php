@@ -246,9 +246,8 @@ class AppController extends Controller
         foreach ($post as $param => $value) {
             if (false !== strpos($param, 'pizza_')) {
                 list($temp, $index) = explode('_', $param);
-                $value = preg_replace('/[^A-Za-z0-9 \']/', '', $value);
+                $value = str_replace(['>', '<', '%', '=', '*', '&#'], '', $value);
                 if (!empty($value)) {
-
                     $pizza = new Entity\Pizza();
                     $pizza->setName(trim($value));
                     $pizza->setMeat((bool) $request->get('meat_' . $index, false));
