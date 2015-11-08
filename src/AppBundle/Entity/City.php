@@ -131,17 +131,30 @@ class City
                 $result[] = $restaurant;
             }
         }
+        usort($result, [$this, "orderByName"]);
 
         return $result;
+    }
+
+    /**
+     * @param Restaurant $a
+     * @param Restaurant $b
+     *
+     * @return int
+     */
+    public function orderByName($a, $b)
+    {
+        return strcmp($a->getName(), $b->getName());
     }
 
     /**
      * Adds restaurant
      *
      * @param Restaurant $restaurant
+     *
      * @return City
      */
-    public function addRestaurant(\AppBundle\Entity\Restaurant $restaurant)
+    public function addRestaurant(Restaurant $restaurant)
     {
         $this->restaurants[] = $restaurant;
 
