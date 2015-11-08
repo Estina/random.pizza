@@ -68,9 +68,10 @@ class Restaurant
      */
     public function getRandomId($cityId)
     {
-        $query = "SELECT restaurant_id
-                  FROM `city_restaurant`
-                  WHERE city_id = :cityId
+        $query = "SELECT r.id
+                  FROM `city_restaurant` cr
+                  INNER JOIN `restaurant` r ON r.id = cr.restaurant_id AND r.approved = 1
+                  WHERE cr.city_id = :cityId
                   ORDER BY RAND()
                   LIMIT 1";
 
