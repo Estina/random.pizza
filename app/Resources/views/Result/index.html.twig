@@ -4,7 +4,10 @@
 {% block metaDescription %}{{ resultMetaDescription(result) }}{% endblock %}
 {% block metaKeywords %}{{ resultMetaKeywords(result) }}{% endblock %}
 
-{% block scripts %}<script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>.
+    <script id="dsq-count-scr" src="https://randompizza.disqus.com/count.js" async></script>
+{% endblock %}
 
 {% block controller %}result{% endblock %}
 
@@ -76,14 +79,29 @@
                     Generated on <strong><span id="date-created"></span></strong>.
                     {{ resultDescription(result) }}
                 </p>
-                <p>&nbsp;</p>
-                <p class="text-center enjoy"><strong>Enjoy your pizza!</strong></p>
+
+                <div id="disqus_thread"></div>
+                <script>
+                    var disqus_config = function () {
+                        this.page.url = '{{ resultUrl }}';
+                        this.page.identifier = '{{ result['slug'] }}';
+                    };
+                    (function() {
+                        var d = document, s = d.createElement('script');
+                        s.src = '//randompizza.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
 
             </fieldset>
         </div>
     </div>
 
-
-
+    <div class="row clearfix">
+        <div class="col-md-6 col-md-offset-3 column">
+            <p class="text-center enjoy"><strong>Enjoy your pizza!</strong></p>
+        </div>
+    </div>
 
 {% endblock %}
