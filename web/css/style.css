@@ -34,6 +34,11 @@ legend {
     left:50%;
     margin-left:-32px;
 }
+.recent-list li {
+    list-style: none;
+    float: left;
+    padding: 10px;
+}
 .result-board {
     background-color: #111;
     background-image: url("/img/board.jpg");
@@ -101,7 +106,4 @@ legend {
 }
 .pizza-ctr .row {
     margin:0;
-}
-#disqus_thread {
-    margin-top:40px;
 }

@@ -4,9 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     service.slug:
         class: AppBundle\Service\Slug
         arguments: [@doctrine.orm.entity_manager]
@@ -16,8 +13,8 @@ services:
     service.restaurant:
         class: AppBundle\Service\Restaurant
         arguments: [@doctrine.orm.entity_manager]
-    service.pizza:
-        class: AppBundle\Service\Pizza
+    service.result:
+        class: AppBundle\Service\Result
         arguments: [@doctrine.orm.entity_manager, @service.slug]
     app.twig_extension:
         class: AppBundle\Twig\PizzaExtension

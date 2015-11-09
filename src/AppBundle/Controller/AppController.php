@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity;
 use AppBundle\Service\City;
-use AppBundle\Service\Pizza;
+use AppBundle\Service\Result;
 use AppBundle\Service\Restaurant;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,6 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class AppController
+ * @package AppBundle\Controller
+ */
 class AppController extends Controller
 {
     /**
@@ -24,7 +28,11 @@ class AppController extends Controller
      */
     public function homeAction()
     {
-        return $this->render('Home/index.html.twig');
+        /** @var Result $resultService */
+        $resultService = $this->get('service.result');
+        $params = ['recentResults' => $resultService->getRecentResults()];
+
+        return $this->render('Home/index.html.twig', $params);
     }
 
     /**
@@ -72,8 +80,8 @@ class AppController extends Controller
     {
         /** @var City $cityService */
         $cityService = $this->get('service.city');
-        /** @var Pizza $pizzaService */
-        $pizzaService = $this->get('service.pizza');
+        /** @var Result $resultService */
+        $resultService = $this->get('service.result');
         /** @var Restaurant $restaurantService */
         $restaurantService = $this->get('service.restaurant');
         /** @var Request $request */
@@ -93,13 +101,13 @@ class AppController extends Controller
             return new JsonResponse(['error' => 'No pizzas found. Try different settings.']);
         }
 
-        $ids = $pizzaService->getRandomIds($pizzas, $options['qty']);
+        $ids = $resultService->getRandomIds($pizzas, $options['qty']);
         $ids = array_count_values($ids);
         /** @var Entity\Result $result */
-        $result = $pizzaService->save($city, $restaurant, $options);
+        $result = $resultService->save($city, $restaurant, $options);
         if ($result) {
             foreach ($ids as $pizzaId => $qty) {
-                $pizzaService->addPizza($result->getId(), $pizzaId, $qty);
+                $resultService->addPizza($result->getId(), $pizzaId, $qty);
             }
         }
 
@@ -112,16 +120,16 @@ class AppController extends Controller
      */
     public function displayResultAction($slug)
     {
-        /** @var Pizza $pizzaService */
-        $pizzaService = $this->get('service.pizza');
+        /** @var Result $resultService */
+        $resultService = $this->get('service.result');
 
-        $result = $pizzaService->getResult($slug);
+        $result = $resultService->getResult($slug);
         if (!$result) {
             throw new NotFoundHttpException("Result not found");
         }
 
         $result['options'] = json_decode($result['options']);
-        $result['pizzas'] = $pizzaService->getPizzas($result['result_id']);
+        $result['pizzas'] = $resultService->getPizzas($result['result_id']);
 
         return $this->render('Result/index.html.twig', [
             'result' => $result
@@ -232,8 +240,8 @@ class AppController extends Controller
     {
         /** @var Request $request */
         $request = $this->get('request');
-        /** @var Pizza $pizzaService */
-        $pizzaService = $this->get('service.pizza');
+        /** @var Result $resultService */
+        $resultService = $this->get('service.result');
 
         $result = [];
         $post = $request->request->all();
@@ -248,7 +256,7 @@ class AppController extends Controller
                     $pizza->setVegetarian((bool) $request->get('vegetarian_' . $index, false));
                     $pizza->setFish((bool) $request->get('fish_' . $index, false));
                     $pizza->setHot((bool) $request->get('hot_' . $index, false));
-                    $pizza = $pizzaService->savePizza($pizza);
+                    $pizza = $resultService->savePizza($pizza);
 
                     $result[] = $pizza;
                 }
