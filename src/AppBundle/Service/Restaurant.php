@@ -66,6 +66,26 @@ class Restaurant
      *
      * @return int
      */
+    public function getRestaurantsByCityId($cityId)
+    {
+        $query = "SELECT r.id, r.name
+                  FROM `city_restaurant` cr
+                  INNER JOIN `restaurant` r ON r.id = cr.restaurant_id AND r.approved = 1
+                  WHERE cr.city_id = :cityId
+                  ORDER BY r.name";
+
+        $statement = $this->em->getConnection()->prepare($query);
+        $statement->bindValue(':cityId', $cityId, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    /**
+     * @param int $cityId
+     *
+     * @return int
+     */
     public function getRandomId($cityId)
     {
         $query = "SELECT r.id

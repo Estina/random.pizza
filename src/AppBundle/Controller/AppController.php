@@ -57,15 +57,9 @@ class AppController extends Controller
      */
     public function restaurantsAction($cityId)
     {
-        /** @var City $cityService */
-        $cityService = $this->get('service.city');
-        $params = [];
-        try {
-            $city = $cityService->get((int) $cityId);
-            $params = ['list' => $city->getApprovedRestaurants()];
-        } catch (\InvalidArgumentException $e) {
-            // do nothing
-        }
+        /** @var Restaurant $restaurantService */
+        $restaurantService = $this->get('service.restaurant');
+        $params = ['list' => $restaurantService->getRestaurantsByCityId((int) $cityId)];
 
         return $this->render('Home/restaurants.html.twig', $params);
     }

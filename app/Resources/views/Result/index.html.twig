@@ -6,7 +6,6 @@
 
 {% block scripts %}
     <script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>.
-    <script id="dsq-count-scr" src="https://randompizza.disqus.com/count.js" async></script>
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 {% endblock %}
 
@@ -94,33 +93,15 @@
         <div class="col-md-6 col-md-offset-3 column">
             <fieldset>
                 <legend>Info</legend>
-                <p>
+                <p class="result-description">
                     <input type="hidden" name="date_utc" id="date-utc" value="{{ result['date_created'] }}">
                     Generated on <strong><span id="date-created"></span></strong>.
                     {{ resultDescription(result) }}
                 </p>
 
-                <div id="disqus_thread"></div>
-                <script>
-                    var disqus_config = function () {
-                        this.page.url = '{{ resultUrl }}';
-                        this.page.identifier = '{{ result['slug'] }}';
-                    };
-                    (function() {
-                        var d = document, s = d.createElement('script');
-                        s.src = '//randompizza.disqus.com/embed.js';
-                        s.setAttribute('data-timestamp', +new Date());
-                        (d.head || d.body).appendChild(s);
-                    })();
-                </script>
+                <p class="text-center enjoy"><strong>Enjoy your pizza!</strong></p>
 
             </fieldset>
-        </div>
-    </div>
-
-    <div class="row clearfix">
-        <div class="col-md-6 col-md-offset-3 column">
-            <p class="text-center enjoy"><strong>Enjoy your pizza!</strong></p>
         </div>
     </div>
 

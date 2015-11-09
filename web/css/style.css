@@ -54,12 +54,6 @@ legend {
     font-size: 80px;
     text-align: center;
 }
-.result-description {
-    margin-top: 40px;
-    padding-top: 5px;
-    border-top: 1px solid #e5e5e5;
-    padding-left: 0;
-}
 .result-share {
     margin-top: 40px;
     height:40px;
@@ -67,6 +61,7 @@ legend {
 }
 #share-url {
     margin-bottom: 20px;
+    font-size:106%;
 }
 .social {
     position:absolute;
