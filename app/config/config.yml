@@ -70,3 +70,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# app/config/config.yml
+assetic:
+    assets:
+        jquery_and_ui:
+            inputs:
+                - '@AppBundle/Resources/public/js/thirdparty/jquery.js'
+                - '@AppBundle/Resources/public/js/thirdparty/jquery.ui.js'
+

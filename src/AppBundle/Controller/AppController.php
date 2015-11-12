@@ -32,7 +32,7 @@ class AppController extends Controller
         $resultService = $this->get('service.result');
         $params = ['recentResults' => $resultService->getRecentResults()];
 
-        return $this->render('Home/index.html.twig', $params);
+        return $this->render('AppBundle:Home:index.html.twig', $params);
     }
 
     /**
@@ -52,7 +52,7 @@ class AppController extends Controller
             'multi' => (bool) $multi
         ];
 
-        return $this->render('Home/cities.html.twig', $params);
+        return $this->render('AppBundle:Home:cities.html.twig', $params);
     }
 
     /**
@@ -69,7 +69,7 @@ class AppController extends Controller
         $restaurantService = $this->get('service.restaurant');
         $params = ['list' => $restaurantService->getRestaurantsByCityId((int) $cityId)];
 
-        return $this->render('Home/restaurants.html.twig', $params);
+        return $this->render('AppBundle:Home:restaurants.html.twig', $params);
     }
 
     /**
@@ -131,7 +131,7 @@ class AppController extends Controller
         $result['options'] = json_decode($result['options']);
         $result['pizzas'] = $resultService->getPizzas($result['result_id']);
 
-        return $this->render('Result/index.html.twig', [
+        return $this->render('AppBundle:Result:index.html.twig', [
             'result' => $result
         ]);
     }
@@ -159,7 +159,7 @@ class AppController extends Controller
             }
         }
 
-        return $this->render('Form/index.html.twig');
+        return $this->render('AppBundle:Form:index.html.twig');
     }
 
     /**
@@ -177,7 +177,7 @@ class AppController extends Controller
             return new Response('');
         }
 
-        return $this->render('Form/more_pizzas.html.twig', [
+        return $this->render('AppBundle:Form:more_pizzas.html.twig', [
             'start' => ++$lastIndex,
             'stop' => ($lastIndex + 9)
         ]);
