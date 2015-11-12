@@ -8,7 +8,13 @@
     random.pizza, random pizza, random pizza generator, pizza randomizer, pizza generator, randomize pizzas
 {% endblock %}
 
-{% block scripts %}<script type="text/javascript" src="{{ asset('js/app/home.js') }}"></script>{% endblock %}
+{% block scripts %}
+    {% javascripts
+        '@AppBundle/Resources/public/js/common.js'
+        '@AppBundle/Resources/public/js/home.js' output='js/compiled/home.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 
 {% block controller %}home{% endblock %}
 

@@ -5,9 +5,17 @@
 {% block metaKeywords %}{{ resultMetaKeywords(result) }}{% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" src="{{ asset('js/app/result.js') }}"></script>.
+    {% javascripts
+    '@AppBundle/Resources/public/js/common.js'
+    '@AppBundle/Resources/public/js/result.js' output='js/compiled/result.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
 {% endblock %}
+
+
 
 {% block controller %}result{% endblock %}
 
@@ -70,12 +78,12 @@
         </div>
     </div>
 
+    <!--
     <div class="row clearfix">
         <div class="col-md-6 col-md-offset-3 column">
             <fieldset>
                 <legend>Ads</legend>
 
-                <!-- Responsive -->
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-3798427496943806"
@@ -88,6 +96,7 @@
             </fieldset>
         </div>
     </div>
+    -->
 
     <div class="row clearfix">
         <div class="col-md-6 col-md-offset-3 column">

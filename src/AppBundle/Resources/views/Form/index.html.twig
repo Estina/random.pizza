@@ -8,7 +8,13 @@
     random.pizza, form, submit new place
 {% endblock %}
 
-{% block scripts %}<script type="text/javascript" src="{{ asset('js/app/form.js') }}"></script>{% endblock %}
+{% block scripts %}
+    {% javascripts
+    '@AppBundle/Resources/public/js/common.js'
+    '@AppBundle/Resources/public/js/form.js' output='js/compiled/form.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 
 {% block controller %}form{% endblock %}
 
