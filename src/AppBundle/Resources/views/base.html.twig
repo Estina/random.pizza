@@ -16,7 +16,7 @@
     <meta name="keywords" content="{% block metaKeywords %}{% endblock %}">
     <meta name="author" content="UAB Estina">
 
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Just+Me+Again+Down+Here&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -25,9 +25,8 @@
     <script type="text/javascript" src="{{ asset('js/vendor/html5shiv.js') }}"></script>
     <![endif]-->
 
-    {% javascripts '@js_vendors' output='js/compiled/vendors.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     {% if app.environment == "prod" %}
         <script type="text/javascript">
