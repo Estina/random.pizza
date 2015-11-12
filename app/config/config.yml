@@ -34,11 +34,6 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ AppBundle ]
-    assets:
-        js_vendors:
-            inputs:
-                - "%kernel.root_dir%/../web/js/vendor/jquery.min.js"
-                - "%kernel.root_dir%/../web/js/vendor/bootstrap.min.js"
 
 # Doctrine Configuration
 doctrine:
