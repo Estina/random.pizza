@@ -10,8 +10,8 @@
 
 {% block scripts %}
     {% javascripts
-    '@AppBundle/Resources/public/js/common.js'
-    '@AppBundle/Resources/public/js/form.js' output='js/compiled/form.js' %}
+        '@AppBundle/Resources/public/js/common.js'
+        '@AppBundle/Resources/public/js/form.js' output='js/compiled/form.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
@@ -69,7 +69,7 @@
 
                         <div id="pizza-ctr" class="pizza-ctr">
 
-                            {% include 'Form/more_pizzas.html.twig' with {'start': 1, 'stop': 10} only %}
+                            {% include 'AppBundle:Form:more_pizzas.html.twig' with {'start': 1, 'stop': 10} only %}
 
                         </div>
 
