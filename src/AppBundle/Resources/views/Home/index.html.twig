@@ -135,21 +135,6 @@
         </div>
     </div>
 
-    <div class="row clearfix">
-        <div class="col-md-6 col-md-offset-3 column">
-            <fieldset>
-                <!-- Form Name -->
-                <legend>Recent results</legend>
-                <ul class="recent-list">
-                    {% for slug in recentResults %}
-                        {% set resultUrl = 'http://random.pizza/' ~ slug %}
-                        <li><a href="{{ resultUrl }}">{{ slug }}</a></li>
-                    {% endfor %}
-                </ul>
-            </fieldset>
-        </div>
-    </div>
-
 
 
 {% endblock %}

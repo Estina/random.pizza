@@ -28,11 +28,7 @@ class AppController extends Controller
      */
     public function homeAction()
     {
-        /** @var Result $resultService */
-        $resultService = $this->get('service.result');
-        $params = ['recentResults' => $resultService->getRecentResults()];
-
-        return $this->render('AppBundle:Home:index.html.twig', $params);
+        return $this->render('AppBundle:Home:index.html.twig');
     }
 
     /**

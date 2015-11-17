@@ -156,25 +156,6 @@ class Result
     /**
      * @param int $limit
      *
-     * @return array
-     */
-    public function getRecentResults($limit = 9)
-    {
-        $query = "SELECT `slug`
-                  FROM `result`
-                  ORDER BY id DESC
-                  LIMIT :limit";
-
-        $statement = $this->em->getConnection()->prepare($query);
-        $statement->bindValue(':limit', $limit, \PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetchAll(\PDO::FETCH_COLUMN);
-    }
-
-    /**
-     * @param int $limit
-     *
      * @return \Generator
      */
     public function getResults($limit)
