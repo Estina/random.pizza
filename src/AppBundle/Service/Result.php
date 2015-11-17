@@ -171,4 +171,26 @@ class Result
 
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
     }
+
+    /**
+     * @param int $limit
+     *
+     * @return \Generator
+     */
+    public function getResults($limit)
+    {
+        $query = "SELECT slug, date_created
+                  FROM `result`
+                  ORDER BY id DESC";
+
+        $statement = $this->em->getConnection()->prepare($query);
+        $statement->execute();
+
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            yield $row;
+            if (0 == --$limit) {
+                break;
+            }
+        }
+    }
 }

@@ -9,5 +9,7 @@
 /web/bundles/
 /web/js/compiled
 !web/js/compiled/.gitkeep
+/web/sitemap/*
+!web/sitemap/.gitkeep
 /vendor/
 
