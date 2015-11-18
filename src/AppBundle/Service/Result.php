@@ -54,10 +54,11 @@ class Result
      * @param Entity\City       $city
      * @param Entity\Restaurant $restaurant
      * @param array             $options
+     * @param string            $ip
      *
      * @return Entity\Result
      */
-    public function save(Entity\City $city, Entity\Restaurant $restaurant, array $options)
+    public function save(Entity\City $city, Entity\Restaurant $restaurant, array $options, $ip)
     {
         $result = new Entity\Result();
         $result
@@ -65,7 +66,8 @@ class Result
             ->setCountryCode($city->getCountryCode())
             ->setCityId($city->getId())
             ->setRestaurantId($restaurant->getId())
-            ->setDateCreated(time());
+            ->setDateCreated(time())
+            ->setIp($ip);
 
         do {
             $slug = $this->slugService->generate();

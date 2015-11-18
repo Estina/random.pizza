@@ -100,7 +100,7 @@ class AppController extends Controller
         $ids = $resultService->getRandomIds($pizzas, $options['qty']);
         $ids = array_count_values($ids);
         /** @var Entity\Result $result */
-        $result = $resultService->save($city, $restaurant, $options);
+        $result = $resultService->save($city, $restaurant, $options, $request->getClientIp());
         if ($result) {
             foreach ($ids as $pizzaId => $qty) {
                 $resultService->addPizza($result->getId(), $pizzaId, $qty);

@@ -55,6 +55,13 @@ class Result
     private $slug;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=16, nullable=false)
+     */
+    private $ip;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -202,6 +209,30 @@ class Result
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set ip
+     *
+     * @param string $ip
+     *
+     * @return Result
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
     }
 
     /**
