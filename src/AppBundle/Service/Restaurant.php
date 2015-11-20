@@ -129,17 +129,17 @@ class Restaurant
     }
 
     /**
-     * @param $name
+     * @param string $name
+     * @param string $url
      * @param array $cities
      * @param array $pizzas
      *
      * @return Entity\Restaurant
      */
-    public function save($name, array $cities, array $pizzas)
+    public function save($name, $url, array $cities, array $pizzas)
     {
         $restaurant = new Entity\Restaurant();
-        $restaurant->setName($name);
-        $restaurant->setApproved(false);
+        $restaurant->setName($name)->setUrl($url)->setApproved(false);
 
         foreach ($cities as $city) {
             $restaurant->addCity($city);

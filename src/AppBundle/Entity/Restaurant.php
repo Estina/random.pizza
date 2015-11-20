@@ -47,6 +47,13 @@ class Restaurant
     private $lastUpdated;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="approved", type="boolean", nullable=false)
@@ -158,6 +165,29 @@ class Restaurant
     public function getLastUpdated()
     {
         return $this->lastUpdated;
+    }
+
+    /**
+     * Set URL
+     *
+     * @param string $url
+     * @return Restaurant
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get URL
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**

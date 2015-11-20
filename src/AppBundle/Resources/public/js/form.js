@@ -15,11 +15,11 @@ var App = App || {};
             },
 
             markError: function() {
-                $('#country').parent().addClass('has-error');
+                $('#country').parent().parent().addClass('has-error');
             },
 
             removeError: function() {
-                $('#country').parent().removeClass('has-error');
+                $('#country').parent().parent().removeClass('has-error');
             }
         },
 

@@ -29,7 +29,7 @@ class PizzaExtension extends \Twig_Extension
             '%d Random Pizza%s in %s, %s',
             $generatedResult['options']->qty,
             ($generatedResult['options']->qty > 1) ? 's' : '',
-            $generatedResult['restaurant'],
+            $generatedResult['restaurant_name'],
             $generatedResult['city']
         );
     }
@@ -46,7 +46,7 @@ class PizzaExtension extends \Twig_Extension
             $generatedResult['options']->qty,
             $this->getFlavor($generatedResult['options']),
             ($generatedResult['options']->qty > 1) ? 's' : '',
-            $generatedResult['restaurant'],
+            $generatedResult['restaurant_name'],
             $generatedResult['city'],
             $this->getPizzas($generatedResult['pizzas'])
         );
@@ -61,7 +61,7 @@ class PizzaExtension extends \Twig_Extension
     {
         return sprintf(
             'random.pizza, random pizza, random pizza generator, %s, %s, %s',
-            $generatedResult['restaurant'],
+            $generatedResult['restaurant_name'],
             $generatedResult['city'],
             $this->getPizzas($generatedResult['pizzas'])
         );
@@ -81,16 +81,26 @@ class PizzaExtension extends \Twig_Extension
             ($generatedResult['options']->qty > 1) ? 's' : ''
         );
 
+        if (!empty($generatedResult['url'])) {
+            $restaurant = sprintf(
+                '<a href="http://%s" target="_blank">"%s"</a>',
+                $generatedResult['url'],
+                $generatedResult['restaurant_name']
+            );
+        } else {
+            $restaurant = sprintf('"<strong>%s</strong>"', $generatedResult['restaurant_name']);
+        }
+
         if (0 == $generatedResult['options']->restaurantId) {
             $result .= sprintf(
-                'for <strong>random</strong> restaurant located in <strong>%s</strong>. So, I\'ve picked "<strong>%s</strong>" for you!',
+                'for <strong>random</strong> restaurant located in <strong>%s</strong>. So, I\'ve picked "%s" for you!',
                 $generatedResult['city'],
-                $generatedResult['restaurant']
+                $restaurant
             );
         } else {
             $result .= sprintf(
-                'for <strong>%s</strong> located in <strong>%s</strong>.',
-                $generatedResult['restaurant'],
+                'for %s located in <strong>%s</strong>.',
+                $restaurant,
                 $generatedResult['city']
             );
         }

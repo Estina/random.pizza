@@ -146,16 +146,33 @@ class AppController extends Controller
 
         if ($request->isMethod('POST')) {
             $name = $request->get('restaurant');
+            $url = $this->getUrl($request->get('url'));
             $cities = $this->getCities();
             if ($name && $cities) {
                 $pizzas = $this->getPizzas();
-                $restaurant = $restaurantService->save($name, $cities, $pizzas);
+                $restaurant = $restaurantService->save($name, $url, $cities, $pizzas);
                 $this->addFlash('saved', $restaurant->getName());
                 $this->redirect($this->generateUrl('app_app_form'));
             }
         }
 
         return $this->render('AppBundle:Form:index.html.twig');
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return mixed
+     */
+    private function getUrl($url)
+    {
+        $result = null;
+
+        if (!empty($url)) {
+            $result = str_replace('http://', '', $url);
+        }
+
+        return $result;
     }
 
     /**

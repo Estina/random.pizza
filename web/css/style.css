@@ -107,3 +107,6 @@ legend {
 .pizza-ctr .row {
     margin:0;
 }
+.result-description a {
+    font-weight: bold;
+}

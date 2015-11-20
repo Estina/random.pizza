@@ -106,7 +106,8 @@ class Result
                          result.options,
                          result.slug,
                          city.name AS city,
-                         restaurant.name AS restaurant
+                         restaurant.name AS restaurant_name,
+                         restaurant.url
                   FROM `result`
                   INNER JOIN city
                     ON city.id = result.city_id
