@@ -142,18 +142,15 @@ var App = App || {};
                     _this.Restaurant.setEmpty();
                     _this.Generator.disable();
                 } else {
-                    _this.Restaurant.setValues(_this.City.getId(), function() {
-                        if (_this.Restaurant.hasValues()) {
-                            _this.Generator.enable();
-                        } else {
-                            _this.Generator.disable();
-                        }
-                    });
+                    _this.Restaurant.setValues(_this.City.getId(), function() {});
                 }
             });
 
             this.Restaurant.onChange(function(){
-                if ('' !== _this.Restaurant.getId()) {
+                if ('' == _this.Restaurant.getId()) {
+                    _this.Generator.disable();
+                } else {
+                    _this.Generator.enable();
                     $('#qty').focus().select();
                 }
             });

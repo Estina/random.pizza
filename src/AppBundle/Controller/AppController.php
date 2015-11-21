@@ -85,7 +85,7 @@ class AppController extends Controller
 
         $options = $this->getOptions($request);
         $city = $cityService->get($options['cityId']);
-        if (0 === $options['restaurantId']) {
+        if (0 >= $options['restaurantId']) {
             $restaurant = $restaurantService->get($restaurantService->getRandomId($options['cityId']));
         } else {
             $restaurant = $restaurantService->get($options['restaurantId']);

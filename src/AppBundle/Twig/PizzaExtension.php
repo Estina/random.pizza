@@ -91,7 +91,7 @@ class PizzaExtension extends \Twig_Extension
             $restaurant = sprintf('"<strong>%s</strong>"', $generatedResult['restaurant_name']);
         }
 
-        if (0 == $generatedResult['options']->restaurantId) {
+        if (0 >= $generatedResult['options']->restaurantId) {
             $result .= sprintf(
                 'for <strong>random</strong> restaurant located in <strong>%s</strong>. So, I\'ve picked "%s" for you!',
                 $generatedResult['city'],

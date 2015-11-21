@@ -1,7 +1,8 @@
 <select id="restaurant" name="restaurant" class="form-control">
 
     {% if list|length > 1 %}
-        <option value="">random</option>
+        <option value="">select</option>
+        <option value="-1">-- Random! --</option>
     {%  endif %}
 
     {% for restaurant in list %}
