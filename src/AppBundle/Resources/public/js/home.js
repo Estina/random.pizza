@@ -142,7 +142,12 @@ var App = App || {};
                     _this.Restaurant.setEmpty();
                     _this.Generator.disable();
                 } else {
-                    _this.Restaurant.setValues(_this.City.getId(), function() {});
+                    _this.Restaurant.setValues(_this.City.getId(), function() {
+                        if (0 < parseInt(_this.Restaurant.getId())) {
+                            _this.Generator.enable();
+                            $('#qty').focus().select();
+                        }
+                    });
                 }
             });
 
