@@ -264,7 +264,9 @@ class AppController extends Controller
                 $value = str_replace(['>', '<', '%', '=', '*', '&#'], '', $value);
                 if (!empty($value)) {
                     $pizza = new Entity\Pizza();
-                    $pizza->setName(trim($value));
+                    $value = trim($value);
+                    $value = mb_convert_case($value, MB_CASE_TITLE, "UTF-8");
+                    $pizza->setName($value);
                     $pizza->setMeat((bool) $request->get('meat_' . $index, false));
                     $pizza->setVegetarian((bool) $request->get('vegetarian_' . $index, false));
                     $pizza->setFish((bool) $request->get('fish_' . $index, false));
