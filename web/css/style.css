@@ -101,6 +101,9 @@ legend {
     font-family: 'Just Me Again Down Here', cursive;
     color:#47a447;
 }
+#restaurant-form #city {
+    height:250px;
+}
 .pizza-ctr {
     padding-top: 40px;
 }
