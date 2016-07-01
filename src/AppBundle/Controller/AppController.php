@@ -111,7 +111,7 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/{slug}", requirements={"slug" = "^[a-z0-9]{6}$"})
+     * @Route("/{slug}", name="display_result", requirements={"slug" = "^[a-z0-9]{6}$"})
      * @Method("GET")
      */
     public function displayResultAction($slug)
